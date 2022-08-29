@@ -1,0 +1,586 @@
+from tkinter import* 
+
+import random
+
+x = "Game Over"
+#Points 
+points = 0
+#Count number of tries
+tries = 0
+#Count number of flips
+flips = 0
+#Booleans to know what card is flipped
+card1 = False
+card2 = False
+card3 = False
+card4 = False
+card5 = False
+card6 = False
+card7 = False
+card8 = False
+
+#Make all booleans false
+def allFalse():
+    card1 = False
+    card2 = False
+    card3 = False
+    card4 = False
+    card5 = False
+    card6 = False
+    card7 = False
+    card8 = False    
+#Get players name from entry box
+
+def getName():
+    global user 
+    user = name.get()
+    root.destroy()
+
+#Function for next Canvas
+def nextCanvas():
+    root.destroy()
+    
+#Function to hide everything
+def hide():
+    #Configure everything to state hide
+    gameArea.itemconfig(cardBack1, state = HIDDEN)
+    gameArea.itemconfig(cardBack2, state = HIDDEN)
+    gameArea.itemconfig(cardBack3, state = HIDDEN)
+    gameArea.itemconfig(cardBack4, state = HIDDEN)
+    gameArea.itemconfig(cardBack5, state = HIDDEN)        
+    gameArea.itemconfig(cardBack6, state = HIDDEN)
+    gameArea.itemconfig(cardBack7, state = HIDDEN)
+    gameArea.itemconfig(cardBack8, state = HIDDEN)
+    gameArea.itemconfig(cardFront1, state = HIDDEN)
+    gameArea.itemconfig(cardFront2, state = HIDDEN)
+    gameArea.itemconfig(cardFront3, state = HIDDEN)
+    gameArea.itemconfig(cardFront4, state = HIDDEN)   
+    gameArea.itemconfig(cardFront5, state = HIDDEN)
+    gameArea.itemconfig(cardFront6, state = HIDDEN)
+    gameArea.itemconfig(cardFront7, state = HIDDEN)
+    gameArea.itemconfig(cardFront8, state = HIDDEN)           
+    
+    gameArea.itemconfig(button1, state = HIDDEN)
+    gameArea.itemconfig(button2, state = HIDDEN)
+    gameArea.itemconfig(button3, state = HIDDEN)
+    gameArea.itemconfig(button4, state = HIDDEN)
+    gameArea.itemconfig(button5, state = HIDDEN)        
+    gameArea.itemconfig(button6, state = HIDDEN)
+    gameArea.itemconfig(button7, state = HIDDEN)
+    gameArea.itemconfig(button8, state = HIDDEN)      
+#Funtion to know how many cards to show and what buttons
+def show():
+    #global variable
+    global cardNum
+    
+    #get number of cards
+    cardNum = numCard.get()    
+    #if statement to check how many cards are shown
+    if cardNum == 4:
+        #Show 4 cards front and back
+        gameArea.itemconfig(cardBack2, state = NORMAL)
+        gameArea.itemconfig(cardBack3, state = NORMAL)
+        gameArea.itemconfig(cardBack6, state = NORMAL)
+        gameArea.itemconfig(cardBack7, state = NORMAL)
+        #Function to make all cards false
+        allFalse()
+        gameArea.itemconfig(cardFront2, state = NORMAL)
+        gameArea.itemconfig(cardFront3, state = NORMAL)
+        gameArea.itemconfig(cardFront6, state = NORMAL)
+        gameArea.itemconfig(cardFront7, state = NORMAL)    
+        
+        gameArea.itemconfig(button2, state = NORMAL)
+        gameArea.itemconfig(button3, state = NORMAL)
+        gameArea.itemconfig(button6, state = NORMAL)
+        gameArea.itemconfig(button7, state = NORMAL)            
+    elif cardNum == 8:
+        #Show 8 cards front and back
+        gameArea.itemconfig(cardBack1, state = NORMAL)
+        gameArea.itemconfig(cardBack2, state = NORMAL)
+        gameArea.itemconfig(cardBack3, state = NORMAL)
+        gameArea.itemconfig(cardBack4, state = NORMAL)
+        gameArea.itemconfig(cardBack5, state = NORMAL)        
+        gameArea.itemconfig(cardBack6, state = NORMAL)
+        gameArea.itemconfig(cardBack7, state = NORMAL)
+        gameArea.itemconfig(cardBack8, state = NORMAL)
+        #Function to make all cards false
+        allFalse()
+        gameArea.itemconfig(cardFront1, state = NORMAL)
+        gameArea.itemconfig(cardFront2, state = NORMAL)
+        gameArea.itemconfig(cardFront3, state = NORMAL)
+        gameArea.itemconfig(cardFront4, state = NORMAL)   
+        gameArea.itemconfig(cardFront5, state = NORMAL)
+        gameArea.itemconfig(cardFront6, state = NORMAL)
+        gameArea.itemconfig(cardFront7, state = NORMAL)
+        gameArea.itemconfig(cardFront8, state = NORMAL)           
+        
+
+        gameArea.itemconfig(button1, state = NORMAL)
+        gameArea.itemconfig(button2, state = NORMAL)
+        gameArea.itemconfig(button3, state = NORMAL)
+        gameArea.itemconfig(button4, state = NORMAL)
+        gameArea.itemconfig(button5, state = NORMAL)        
+        gameArea.itemconfig(button6, state = NORMAL)
+        gameArea.itemconfig(button7, state = NORMAL)
+        gameArea.itemconfig(button8, state = NORMAL)         
+
+#Function to randomize the cards
+def randomFrontImage():
+    #globalize list 
+    global cardName
+    
+    #create list
+    cardName = [front1, front2, front3, front4]
+    #For loop to randomize list
+    for i in range (0, 4):
+        #make random value between 1 and 5 to y 
+        y = random.randint(1,5)
+        if y == 1:
+            cardName.remove(front1)
+            cardName.append(front1)
+        elif y == 2:
+            cardName.remove(front2)
+            cardName.append(front2)
+        elif y == 3:
+            cardName.remove(front3)
+            cardName.append(front3)
+        elif y == 4:
+            cardName.remove(front4)
+            cardName.append(front4) 
+
+#Function to flip every card back to normal when turn is complete
+def checkFlips():
+    #global every variable needed
+    global cardNum, card1, card2, card3, card4, card5, card6, card7, card8
+    #Check how many cards user wanted
+    if cardNum == 4:
+        #if card2 is true that means it has been flipped and must be turned back
+        if card2 == True:
+            #return it back to false once flipped back
+            card2 = False
+            gameArea.itemconfig(cardBack2, state = NORMAL)
+        if card3 == True:
+            card3 = False
+            gameArea.itemconfig(cardBack3, state = NORMAL)
+        if card6 == True:
+            card6 = False
+            gameArea.itemconfig(cardBack6, state = NORMAL)
+        if card7 == True:
+            card7 = False
+            gameArea.itemconfig(cardBack7, state = NORMAL)
+    elif cardNum == 8:
+        if card1 == True:
+            card1 = False
+            gameArea.itemconfig(cardBack1, state = NORMAL)
+        if card2 == True:
+            card2 = False
+            gameArea.itemconfig(cardBack2, state = NORMAL)
+        if card3 == True: 
+            card3 = False
+            gameArea.itemconfig(cardBack3, state = NORMAL)
+        if card4 == True:
+            card4 = False
+            gameArea.itemconfig(cardBack4, state = NORMAL)
+        if card5 == True:
+            card5 = False
+            gameArea.itemconfig(cardBack5, state = NORMAL)        
+        if card6 == True:
+            card6 = False
+            gameArea.itemconfig(cardBack6, state = NORMAL)
+        if card7 == True:
+            card7 = False
+            gameArea.itemconfig(cardBack7, state = NORMAL)
+        if card8 == True:
+            card8 = False
+            gameArea.itemconfig(cardBack8, state = NORMAL)       
+#Function to count points
+def checkPoints():
+    global playerScore, points, card1, card2, card3, card4, card5, card6, card7, card8, triesNum
+    #if card 1 and 8 are both flipped that means the user has scored a point
+    if card1 == True and card8 == True:
+        #Add 1 point
+        points += 1
+        card1 = False
+        card8 = False
+    elif card2 == True and card7 == True:
+        points += 1
+        card2 = False
+        card7 = False        
+    elif card3 == True and card6 == True:
+        points += 1
+        card3 = False
+        card6 = False        
+    elif card4 == True and card5 == True:
+        points += 1
+        card4 = False
+        card5 = False        
+    #Update playerScore to show how many points
+    gameArea.itemconfig(playerScore, text = "Points: "+ str(points)) 
+#Check if user has won
+def checkWin():
+    global points, cardNum, user, youWinText
+    #Check if user has one depending on how many cards and points
+    if points == 2 and cardNum == 4: 
+        #hide everything
+        hide()
+        #Show text and fireworks
+        gameArea.itemconfig(youWinText, text = user + " You Won!!")
+        gameArea.itemconfig(firework, state = NORMAL)
+    elif points == 4 and cardNum == 8:
+        hide()
+        gameArea.itemconfig(youWinText, text = user + " You Won!!")
+        gameArea.itemconfig(firework, state = NORMAL)
+        
+
+#Check if user lost
+def gameover():
+    global triesNum, tries
+    triesNum = numTries.get()
+    #if user passes the amount of tries they lose
+    if tries >= triesNum:
+        gameArea.itemconfig(gameOverText, text = "GAME OVER!")   
+    #check if they won
+    checkWin()
+#Function for button 1
+def but1 ():
+    
+    #Global all variables needed
+    global card1
+    global tries
+    global flips
+    global cardNum, playerScore, gameOver, triesNum
+    #Get variable numTries
+    triesNum = numTries.get()
+    #If number of flips is 0 run this
+    if flips == 0 and tries < triesNum:
+        #hide image
+        gameArea.itemconfig(cardBack1, state = HIDDEN)
+        flips += 1
+        card1 = True 
+    #if flips is 1 run this
+    elif flips == 1:
+        #hide image
+        gameArea.itemconfig(cardBack1, state = HIDDEN)
+        #Add 1 to flips
+        flips += 1
+        card1 = True
+        checkPoints()
+    #elif if flips is 2 run this
+    elif flips == 2:
+        flips = 0
+        #add 1 to the number of tries 
+        tries += 1
+        #run function check
+        checkFlips()
+    gameover()
+#Function for button 2
+def but2 ():
+#Same as but1
+    global card2    
+    global tries
+    global flips
+    global cardNum, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        gameArea.itemconfig(cardBack2, state = HIDDEN)
+        flips += 1
+        card2 = True         
+    elif flips == 1:
+        gameArea.itemconfig(cardBack2, state = HIDDEN)
+        flips += 1
+        card2 = True
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+        gameover()      
+#Function for button 3
+def but3 ():
+#Same as but1
+    global tries
+    global flips
+    global cardNum
+    global card3, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        gameArea.itemconfig(cardBack3, state = HIDDEN)
+        flips += 1
+        card3 = True
+    elif flips == 1:
+        gameArea.itemconfig(cardBack3, state = HIDDEN)
+        flips += 1
+        card3 = True
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover() 
+#Function for button 4
+def but4():
+#Same as but1
+    global tries
+    global flips
+    global cardNum
+    global card4, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        gameArea.itemconfig(cardBack4, state = HIDDEN)
+        flips += 1
+        card4 = True
+    elif flips == 1:
+        gameArea.itemconfig(cardBack4, state = HIDDEN)
+        flips += 1
+        card4 = True
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover()   
+#Function for button 5
+def but5 ():
+#Same as but1
+    global tries
+    global flips
+    global cardNum
+    global card5, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        gameArea.itemconfig(cardBack5, state = HIDDEN)
+        flips += 1
+        card5 = True
+    elif flips == 1:
+        card5 = True
+        gameArea.itemconfig(cardBack5, state = HIDDEN)
+        flips += 1
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover() 
+#Function for button 6
+def but6 ():
+#Same as but1
+    global card6    
+    global tries
+    global flips
+    global cardNum, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        gameArea.itemconfig(cardBack6, state = HIDDEN)
+        card6 = True
+        flips += 1
+    elif flips == 1:
+        card6 = True
+        gameArea.itemconfig(cardBack6, state = HIDDEN)
+        flips += 1
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover()    
+#Function for button 7
+def but7 ():
+#Same as but1
+    global tries
+    global flips
+    global cardNum
+    global card7, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        card7 = True
+        gameArea.itemconfig(cardBack7, state = HIDDEN)
+        flips += 1
+    elif flips == 1:
+        card7 = True
+        gameArea.itemconfig(cardBack7, state = HIDDEN)
+        flips += 1
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover()   
+#Function for button 8
+def but8 ():
+    #same as but1
+    global tries
+    global flips
+    global cardNum, card8, playerScore, gameOver, triesNum
+    triesNum = numTries.get()
+    if flips == 0 and tries < triesNum:
+        card8 = True
+        gameArea.itemconfig(cardBack8, state = HIDDEN)
+        flips += 1
+    elif flips == 1:
+        card8 = True
+        gameArea.itemconfig(cardBack8, state = HIDDEN)
+        flips += 1
+        checkPoints()
+    elif flips == 2:
+        tries += 1
+        flips = 0
+        checkFlips()
+    gameover() 
+#Introduciton screen. This will appear before the game begins
+root = Tk()
+introScreen = Canvas (root, width = 600, height = 400, bg = 'PeachPuff', cursor="cross")
+introScreen.pack()
+
+#Create title
+title = introScreen.create_text(300, 100, text = '"Concentration"', font = ("Arial", "35", "bold italic"), fill = "white")
+
+#Tell user to input name
+subtitle = introScreen.create_text(300, 170, text = '"Name:"', font = ("Arial", "20", "italic"), fill = "grey")
+
+#entry box for name
+name = StringVar()
+nameEntry = introScreen.create_window(300, 220, window = Entry(introScreen, font = ("Arial, 24"), textvariable = name))
+
+#startGame button
+
+startGame = introScreen.create_window(300, 265, window = Button(introScreen, text = "NEXT", font = ("Arial", "12"), command = getName))
+mainloop()
+
+#create new root
+
+root = Tk()
+
+#Create canvas for rules
+rules = Canvas(root, height = 500, width = 900, bg = "PeachPuff", cursor = 'spider')
+
+
+rules.pack()
+
+# Create the rules text 
+rule = rules.create_text(100, 25, text = "Rules:", font = ("Arial", "30"), fill = "Dark red")
+rulesWords = rules.create_text(320, 233, text = "Hello " +  user + "! \nThis is the game of concentration.\nEach turn you will pick 2 cards.\nMake sure to memorize them. \n\nWhen you pick 2 of the same cards,\nyou will gain points.\nYou only get a specified number of tries.\n\nAfter picking 2 cards,\nselect a different card to continue", font = ("Arial", "22", "bold italic"), fill = 'lime green', activefil = "White")
+
+
+nextC = rules.create_window(170, 450, window = Button(rules, text = "    NEXT    ", font = ("Arial", "18"), command = nextCanvas)) 
+
+#Give program permission to access images 
+
+backEx = PhotoImage(file = "card back red final.png")
+
+#Put image in the Canvas 
+
+Cardpic = rules.create_image(720, 260, image = backEx, state = NORMAL)
+
+mainloop()
+
+#Destroy root
+
+
+#Create another root
+root = Tk()
+options = Canvas(root, height = 400, width = 900, bg = "light green", cursor = 'mouse') 
+
+options.pack()
+
+#Create title text
+
+titleOptions = options.create_text(450, 50, text = '"OPTIONS"', font = ("times new roman", "30", "bold italic"), fill = "white", activefill = "grey")
+
+# Create text for the spinbox question
+
+textAmountCard = options.create_text (230, 150, text = "How many cards would  \n you want to play with?", font = ("Arial", "19"), fill = "dark red")
+
+
+#Create spinbox
+numCard = IntVar()
+cardSpinbox = options.create_window(230, 210, window = Spinbox(root, from_=4, to= 8, increment= 4, textvariable = numCard, width = 5, font = ("Arial", "25"), highlightcolor = "green", bg = "light blue", activebackground = "purple", fg = "dark blue"))
+
+#Create text for the number of tries 
+textNumTries = options.create_text(720, 135, text = "How many tries per game?", font = ("Arial", "19"), fill = "dark green")
+
+#Create control Variable
+numTries = IntVar()
+
+#Create scale from 1 to 10
+cardScale = options.create_window(720, 200, window = Scale(root, from_=1, to=10, resolution = 1, orient=HORIZONTAL, variable = numTries, bg = "royal blue", bd = "3", font = ("Arial", "19"))) 
+options.pack()
+
+#Create button
+nextC2 = options.create_window(450, 300, window = Button(options, text = "    READY    ", font = ("Arial", "18"), bg = "blue", fg = "red", activebackground = "green", activeforeground = "white", command = nextCanvas)) 
+
+mainloop()
+
+#create root
+root = Tk()
+
+#create Canvas and pack
+gameArea = Canvas(root, height = 700, width = 1100, bg = "black", cursor = "dot")
+gameArea.pack()
+
+#Give program permission to access image
+
+back = PhotoImage(file = "card back red final.png")
+front1 = PhotoImage(file = "front1.png")
+front2 = PhotoImage(file = "front2.png")
+front3 = PhotoImage(file = "front3.png")
+front4 = PhotoImage(file = "front4.png")
+fireworks = PhotoImage(file = "fireworks.gif")
+
+#Randamize where the images are placed
+randomFrontImage()
+
+#Create images for front side card
+
+
+cardFront1 = gameArea.create_image(250, 200, image = cardName[0], state = HIDDEN)
+cardFront2 = gameArea.create_image(450, 200, image = cardName[1], state = HIDDEN)
+cardFront3 = gameArea.create_image(650, 200, image = cardName[2], state = HIDDEN)
+cardFront4 = gameArea.create_image(850, 200, image = cardName[3], state = HIDDEN)
+
+cardFront5 = gameArea.create_image(250, 500, image = cardName[3], state = HIDDEN)
+cardFront6 = gameArea.create_image(450, 500, image = cardName[2], state = HIDDEN)
+cardFront7 = gameArea.create_image(650, 500, image = cardName[1], state = HIDDEN)
+cardFront8 = gameArea.create_image(850, 500, image = cardName[0], state = HIDDEN)
+
+#Create images back of cards
+cardBack1 = gameArea.create_image(250, 200, image = back, state = HIDDEN)
+cardBack2 = gameArea.create_image(450, 200, image = back, state = HIDDEN)
+cardBack3 = gameArea.create_image(650, 200, image = back, state = HIDDEN)
+cardBack4 = gameArea.create_image(850, 200, image = back, state = HIDDEN)
+
+cardBack5 = gameArea.create_image(250, 500, image = back, state = HIDDEN)
+cardBack6 = gameArea.create_image(450, 500, image = back, state = HIDDEN)
+cardBack7 = gameArea.create_image(650, 500, image = back, state = HIDDEN)
+cardBack8 = gameArea.create_image(850, 500, image = back, state = HIDDEN)
+
+
+
+#Put front pages into 
+
+#Create Buttons bellow Image
+button1 = gameArea.create_window(250, 350, window = Button(gameArea, text="    ", bg = "red", activebackground = "lime green",  height = 1, command = but1), state = HIDDEN)
+button2 = gameArea.create_window(450, 350, window = Button(gameArea, text="    ", bg = "red", activebackground = "lime green",  height = 1, command = but2), state = HIDDEN)
+button3 = gameArea.create_window(650, 350, window = Button(gameArea, text="    ", bg = "red", activebackground = "lime green", height = 1, command = but3), state = HIDDEN)
+button4 = gameArea.create_window(850, 350, window = Button(gameArea, text="    ", bg = "red", activebackground = "lime green", height = 1, command = but4), state = HIDDEN)
+button5 = gameArea.create_window(250, 650, window = Button(gameArea, text="    ", bg = "blue", activebackground = "lime green", height = 1, command = but5), state = HIDDEN)
+button6 = gameArea.create_window(450, 650, window = Button(gameArea, text="    ", bg = "blue", activebackground = "lime green", height = 1, command = but6), state = HIDDEN)
+button7 = gameArea.create_window(650, 650, window = Button(gameArea, text="    ", bg = "blue", activebackground = "lime green", height = 1, command = but7), state = HIDDEN)
+button8 = gameArea.create_window(850, 650, window = Button(gameArea, text="    ", bg = "blue", activebackground = "lime green", height = 1, command = but8), state = HIDDEN)
+
+#Use function show
+show()
+
+firework = gameArea.create_image(550, 350, image = fireworks, state = HIDDEN)
+
+#Create text to keep track of user score
+playerScore = gameArea.create_text(90, 40, text = "Points: "+ str(points), font = ("Arial", "25", "bold"), fill = "pink")
+
+#Text for game Over
+
+gameOverText = gameArea.create_text(550, 40, text = "" , font = ("Arial", "50", "bold"), fill = "red")
+#Text for you win
+youWinText = gameArea.create_text(550, 40, text = "" , font = ("Arial", "50", "bold"), fill = "lime green")
+
+#
+
+mainloop()
